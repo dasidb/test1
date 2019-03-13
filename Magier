@@ -1,0 +1,69 @@
+package paket;
+
+import java.util.ArrayList;
+
+public class Magier extends Helden{
+    private int mana = 50;
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public Magier(String name, int stärke, int lebenspunkte, int geschicklichkeit) {
+        super(name, stärke, lebenspunkte, geschicklichkeit);
+    }
+
+    public Magier(String name, int stärke, int lebenspunkte, int geschicklichkeit, Waffe waffe) {
+        super(name, stärke, lebenspunkte, geschicklichkeit, waffe);
+    }
+
+    public Magier(){
+
+    }
+    @Override
+    public void verliereLeben(Helden held, int x){
+        super.verliereLeben(held, x);
+       // if (held instanceof Magier && held.getLebenspunkte() < 80 && ((Magier) held).getMana() >=3){
+      //  heilung((Magier) held);
+        }
+
+
+
+    public void heilung(Magier held){
+        held.setLebenspunkte(held.getLebenspunkte() + 7);
+        System.out.println( held.getName() + "benutzt Heilung");
+        held.setMana(held.getMana() -5);
+        System.out.println(held.getMana() + " Das ist der Übrige mana wert von " +held.getName());
+    }
+
+    @Override
+    public ArrayList<String> faehigkeiten() {
+        ArrayList faehigkeiten = super.faehigkeiten();
+        faehigkeiten.add("Angreifen");
+        faehigkeiten.add("Heilung");
+
+        return faehigkeiten;
+    }
+
+    @Override
+    public int schaden(Helden angreifer, Helden verteidiger, String wahl) {
+
+    if(wahl == "Angreifen") {
+        int x = super.schaden(angreifer, verteidiger, wahl);
+        System.out.println("Die schaden Methode von Magier wird ausgefürt");
+        verteidiger.verliereLeben(verteidiger, x);
+        return x;
+    }
+    if(wahl == "Heilung" && angreifer instanceof Magier){
+        ((Magier) angreifer).heilung(((Magier) angreifer));
+        angreifer.getLebenspunkte();
+        System.out.println("Der Magier benutzt die Schaden Heal Methode");
+        angreifer.getLebenspunkte();
+    }
+    return 0;
+    }
+}
