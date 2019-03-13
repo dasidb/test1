@@ -1,0 +1,139 @@
+package paket;
+
+import javax.swing.*;
+import java.util.ArrayList;
+
+public class Helden {
+    private String name;
+    private int Stärke;
+    private int Lebenspunkte;
+    private int Geschicklichkeit;
+    private boolean hatWaffe = false;
+    private Waffe waffe;
+    private ArrayList<String> faehigkeiten;
+
+    public boolean isHatWaffe() {
+        return hatWaffe;
+    }
+
+    public void setHatWaffe(boolean hatWaffe) {
+        this.hatWaffe = hatWaffe;
+    }
+
+
+
+    public Waffe getWaffe() {
+        return waffe;
+    }
+
+    public void setWaffe(Waffe waffe) {
+        this.waffe = waffe;
+    }
+
+
+
+    //Getter und Setter
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getStärke() {
+        return Stärke;
+    }
+
+    public void setStärke(int stärke) {
+        while (stärke > 50) {
+            stärke = Integer.parseInt(JOptionPane.showInputDialog("Der Wert muss unter 50 sein geben sie einen neuen wert ein"));
+
+        }
+        stärke = stärke;
+
+    }
+
+
+    public int getLebenspunkte() {
+        return Lebenspunkte;
+    }
+
+    public void setLebenspunkte(int lebenspunkte) {
+        //while (lebenspunkte > 500) {
+          //  lebenspunkte = Integer.parseInt(JOptionPane.showInputDialog("Der Wert muss unter 50 sein geben sie einen neuen wert ein"));
+            Lebenspunkte = lebenspunkte;
+        }
+   // }
+        public int getGeschicklichkeit() {
+            return Geschicklichkeit;
+        }
+
+        public void setGeschicklichkeit ( int geschicklichkeit){
+            if (geschicklichkeit > 30) {
+                Geschicklichkeit = geschicklichkeit;
+            }
+
+        }
+
+        //Constructor
+    public Helden(String name, int stärke, int lebenspunkte, int geschicklichkeit){
+            this.name = name;
+            Stärke = stärke;
+            Lebenspunkte = lebenspunkte;
+            Geschicklichkeit = geschicklichkeit;
+            System.out.println("Ein Held betritt die Schlacht");
+        }
+
+        // einen Connstruktor mit waffe aufgerufen geht das?
+    public Helden(String name, int stärke, int lebenspunkte, int geschicklichkeit, Waffe waffe){
+        this.name = name;
+        Stärke = stärke;
+        Lebenspunkte = lebenspunkte;
+        Geschicklichkeit = geschicklichkeit;
+        waffe = waffe;
+        System.out.println("Ein Held betritt die Schlacht");
+    }
+
+        public String[] attribute(){
+        String stärke = "Stärke";
+        String lebenspunkte = "Lebenspunkte";
+        String geschicklichkeit = "Geschicklichkeit";
+        String[] attribute = {stärke,lebenspunkte,geschicklichkeit};
+        return attribute;
+        }
+    public Helden() {
+            System.out.println("Ein Held betritt die Schlacht.");
+        }
+
+        public int schaden(Helden angreifer, Helden verteidiger, String wahl){
+
+        if(wahl == "Angreifen"){
+            int x = angreifer.getStärke() * (int) (Math.random() * 3);
+            int y = angreifer.getGeschicklichkeit() * 2;
+            System.out.println(angreifer.getName() + " macht " + x + " Schaden");
+            System.out.println("die schaden Methode von Held wird ausgeführt");
+
+            verteidiger.verliereLeben(verteidiger, (int) x);
+
+            return x; }
+        return 0;
+        }
+
+
+        public void verliereLeben(Helden held, int x){
+            held.setLebenspunkte(held.getLebenspunkte() - x);
+            String y = held.getName() + " verliert " + x + " Lebenspunkte " + held.getName() + " hat nocch " + held.getLebenspunkte() + " Leben";
+            System.out.println(y);
+
+
+        }
+
+        public ArrayList<String> faehigkeiten(){
+        faehigkeiten = new ArrayList<String>();
+
+        return faehigkeiten;
+        }
+
+    }
+
