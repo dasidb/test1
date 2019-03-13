@@ -1,0 +1,155 @@
+package paket;
+
+import processing.core.PApplet;
+
+import javax.swing.*;
+import java.util.ArrayList;
+
+public class Spiel  {
+        // next public helden erschaffen -----------
+
+    public static void main(String[] args) {
+
+        PApplet.main(Proccessing.class, args);
+        Proccessing process = new Proccessing();
+        process.startePossesion();
+
+
+
+
+
+
+
+        int i = 0;
+
+        // Objekt erschaffen und Methode mit 1 int als parameter aufrufen
+        Spiel spiel = new Spiel();
+        ArrayList<Helden> heldenListe = new ArrayList<Helden>();
+        int x = 2;
+      //  int x = Integer.parseInt(JOptionPane.showInputDialog("wieviele helden?"));
+        while(i < x){
+            heldenListe.add(i,spiel.SpielStarten());
+           System.out.println( "test das sind die lebenspunkte" + heldenListe.get(i).getLebenspunkte());
+            i++;
+
+        }
+        //System.out.println(heldenListe.toString());
+        //heldenListe.size();
+        System.out.println(heldenListe.size());
+        System.out.println("breaaaaaak");
+        spiel.Angriff(heldenListe, x);
+        System.out.println("breaaaaaak");
+    }
+
+        public Helden SpielStarten (){
+            // ---------------- ich muss die getter setter methoden anwenden damit ich fehlerhafte sachen beheben kann
+            ArrayList<Integer> werte = new ArrayList<Integer>();
+            String[] werteString = {"Stärke","Lebenspunkte","Geschicklichkeit"};
+            int x = 500;
+            for(int i = 0 ; i !=3 ; i++){
+
+
+                werte.add(i, werteZuweisen(i,x,werteString));
+                x = x - werte.get(i);
+
+            }
+            // fülle den helden mit werten!
+            String[] klassenAuswahl = {"Krieger", "Magier"};
+            String klasse = String.valueOf(JOptionPane.showInputDialog(null,"dwda","bla",JOptionPane.INFORMATION_MESSAGE,null,klassenAuswahl,klassenAuswahl[0]));
+            Helden held = null;
+            if(klasse == "Krieger"){
+                held = new Krieger(JOptionPane.showInputDialog("Wie Heißt ihr Held"),werte.get(0),werte.get(1),werte.get(2));
+
+            } else if(klasse == "Magier"){
+                held = new Magier(JOptionPane.showInputDialog("Wie Heißt ihr Held"),werte.get(0),werte.get(1),werte.get(2));
+
+            }
+           // Helden held = new Helden(JOptionPane.showInputDialog("Wie Heißt ihr Held"),werte.get(0),werte.get(1),werte.get(2));
+            System.out.println(klasse + "Das ist die Klasse");
+            int bool = JOptionPane.showConfirmDialog(null,"Hat ihr Held eine Waffe","Waffe",JOptionPane.YES_NO_OPTION);
+            System.out.println("bool ist " + bool);
+            if(held.isHatWaffe() != true && bool ==0l){
+             //   held.setWaffe();
+                Waffe waffe = new Waffe();
+                String[] values = waffe.waffenBauen();
+               String y = String.valueOf(JOptionPane.showInputDialog(null,"Choose one", "input", JOptionPane.INFORMATION_MESSAGE, null, values,null));
+               waffe.setName(y);
+               held.setWaffe(waffe);
+               waffe.waffenStats(y, waffe);
+
+               System.out.println("das ist die waffe" + held.getWaffe().getBlocken());
+
+            System.out.println("das ist " + waffe);
+            held.setHatWaffe(true);
+            }
+            System.out.println("das ist die geschicklichkeit" + held.getGeschicklichkeit());
+            System.out.println(held.getName());
+            System.out.println(held.getLebenspunkte());
+
+
+            return held;
+
+
+        }
+
+        public int werteZuweisen(int i, int x,String[] werteString){
+        //solange werte größer 500 add values sollte falsch return
+            int z;
+        do { z = Integer.parseInt(JOptionPane.showInputDialog(" Geben sie die " + werteString[i] + " ein \n Sie haben noch " +
+                + x + " Punkte über "));
+
+
+            }while(z>x);
+
+            return z;
+        }
+
+
+        public void Angriff(ArrayList<Helden> helden, int x){
+        // angriff schaden
+            Helden angreifer = null;
+            Helden verteidiger = null;
+            // Welcher Held greift an? choose angreifer/verteidiger übergebe diesen dort schaden aufrufen und verliere leben aufrufen
+            String z = "Welcher Held soll angreifen?";
+           // String y = " \n " + Integer.toString(i) + helden.get(i).getName();
+            for (int i = 0 ; i < helden.size(); i++)
+                 {
+                     String y = " \n " + Integer.toString(i+1) + " " + helden.get(i).getName();
+                z = z + y;
+            }
+            int y = -1 + Integer.parseInt(JOptionPane.showInputDialog(z ));
+            System.out.println("das ist der wert von y " + y);
+            // helden aus der array list einem helden zuweisen angreifer/verteidiger
+
+             angreifer = helden.get(y);
+            if(y == 1){
+                 verteidiger = helden.get(y-1);
+            }else{
+                 verteidiger = helden.get(y+1);
+
+            }
+
+            // solange lebenspunkte angreifer und verteidige größer 0 führe aus
+            while( angreifer.getLebenspunkte() > 0 && verteidiger.getLebenspunkte() >0){
+                // fähigkeiten rüber ziehen hier jedesmal neu erstellen die liste mit fähigkeiten
+                //später ausgrauen ob fähigkeit ja/nein
+                String[] faehigkeitenAngreifer = angreifer.faehigkeiten().toArray(new String[0]);
+               //auf JOptionPane Show input dialog
+                String wahlAngreifer = String.valueOf(JOptionPane.showOptionDialog(null,"Was wollen sie einsetzen?",null,JOptionPane.DEFAULT_OPTION,2,null,faehigkeitenAngreifer,0));
+
+                angreifer.schaden(angreifer, verteidiger, wahlAngreifer);
+                if (verteidiger.getLebenspunkte() >0 && angreifer.getLebenspunkte() > 0) {
+
+                    String[] faehigkeitenVerteidiger = verteidiger.faehigkeiten().toArray(new String[0]);
+                   String wahlVerteidiger = String.valueOf(JOptionPane.showOptionDialog(null,"Was wollen sie einsetzen?",null,JOptionPane.DEFAULT_OPTION,2,null,faehigkeitenVerteidiger,0));
+
+                    verteidiger.schaden(verteidiger, angreifer,wahlVerteidiger);
+                }else{
+                System.out.println("Der Kampf ist vorbei");
+                }
+
+            }
+
+
+        }
+    }
