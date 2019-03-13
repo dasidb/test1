@@ -1,0 +1,73 @@
+package paket;
+
+import java.util.ArrayList;
+
+public class Krieger extends Helden {
+    public Krieger(String name, int stärke, int lebenspunkte, int geschicklichkeit) {
+        super(name, stärke, lebenspunkte, geschicklichkeit);
+    }
+
+    public Krieger(String name, int stärke, int lebenspunkte, int geschicklichkeit, Waffe waffe) {
+        super(name, stärke, lebenspunkte, geschicklichkeit, waffe);
+    }
+
+    int crit = 10;
+
+    public int getCrit() {
+        return crit;
+    }
+
+    public void setCrit(int crit) {
+        this.crit = crit;
+    }
+
+
+
+    public Krieger(){
+    }
+
+    public Krieger(String name, int stärke, int lebenspunkte, int geschicklichkeit, int crit) {
+        super(name, stärke, lebenspunkte, geschicklichkeit);
+        this.crit = crit;
+    }
+
+    public Krieger(String name, int stärke, int lebenspunkte, int geschicklichkeit, Waffe waffe, int crit) {
+        super(name, stärke, lebenspunkte, geschicklichkeit, waffe);
+        this.crit = crit;
+    }
+@Override
+    public int schaden(Helden angreifer, Helden verteidiger, String wahl){
+        // ggf stolperstein da ein string in einen int soll ggf null setzen
+
+    System.out.println("die Krieger schaden methode");
+    System.out.println("das ist der wert des Strings " + wahl);
+    if(wahl == "Angreifen") {
+        int x = super.schaden(angreifer, verteidiger, wahl);
+        if (angreifer instanceof Krieger && ((Krieger) angreifer).getCrit() * Math.random() >= 8) {
+            trifftKrittisch(x);
+
+        }
+        verteidiger.verliereLeben(verteidiger, x);
+    }
+            if(wahl == "blub"){
+
+                return 0;
+            }
+            return 0;
+        }
+
+
+    public int trifftKrittisch(int x){
+        x = x * 2;
+        System.out.println("DAS WAR EIN KRITT");
+        return x;
+
+    }
+    @Override
+    public ArrayList<String> faehigkeiten(){
+        ArrayList faehigkeiten = super.faehigkeiten();
+        faehigkeiten.add("Angreifen");
+        faehigkeiten.add("Testwert");
+        return faehigkeiten;
+    }
+}
