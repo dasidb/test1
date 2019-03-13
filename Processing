@@ -1,0 +1,54 @@
+package paket;
+
+import processing.core.PApplet;
+import processing.core.PImage;
+
+public class Proccessing extends PApplet {
+    private PImage heldImage;
+    private float heldImageX;
+    private float heldImageY;
+
+    public float getHeldImageX() {
+        return heldImageX;
+    }
+
+    public void setHeldImageX(float heldImageX) {
+        this.heldImageX = heldImageX;
+    }
+
+    public float getHeldImageY() {
+        return heldImageY;
+    }
+
+    public void setHeldImageY(float heldImageY) {
+        this.heldImageY = heldImageY;
+    }
+
+    public void startePossesion() {
+
+    PApplet.main(Proccessing .class,args);
+}
+
+    @Override
+    public void setup() {
+        super.setup();
+
+        background(0);
+        frameRate(30);
+        loop();
+        heldImage = loadImage("resources/held.png");
+        heldImageX = 100;
+        heldImageY = 100;
+    }
+    @Override
+    public void settings() {
+        super.settings();
+
+        size(600,600);
+    }
+
+    public void draw() {
+
+        image(heldImage,heldImageX,heldImageY);
+    }
+}
