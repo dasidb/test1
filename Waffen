@@ -1,0 +1,75 @@
+package paket;
+
+import java.util.ArrayList;
+
+public class Waffe {
+
+    public int schaden;
+    public int blocken;
+
+    public int getSchaden() {
+        return schaden;
+    }
+
+    public void setSchaden(int schaden) {
+        this.schaden = schaden;
+    }
+
+    public int getBlocken() {
+        return blocken;
+    }
+
+    public void setBlocken(int blocken) {
+        this.blocken = blocken;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String name;
+
+    public Waffe(){
+    }
+
+    public Waffe(int schaden, int blocken, String name){
+
+        schaden = schaden;
+        blocken = blocken;
+        this.name = name;
+    }
+
+    public int waffenSchaden(int x){
+
+        return x;
+    }
+    public String[] waffenBauen() {
+
+
+        String[] name = {"Doom Hammer", "Klinge der Unendlichkeit", "Stab des Erzmagiers"};
+    return name;
+    }
+    public Waffe waffenStats(String x, Waffe waffe){
+       // Waffe waffe = new Waffe();
+
+       if(name.equals("Doom Hammer") ){
+           waffe.setSchaden(30);
+           waffe.setBlocken(5);
+
+       }else if(name.equals("Klinge der Unendlichkeit") ){
+           waffe.setSchaden(20);
+           waffe.setBlocken(18);
+
+       }else if(name.equals("Stab des Erzmagiers")){
+           waffe.setSchaden(10);
+            waffe.setBlocken(26);
+       }else{
+        return null;
+        }
+        return waffe;
+    }
+}
